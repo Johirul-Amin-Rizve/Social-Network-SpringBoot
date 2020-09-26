@@ -2,12 +2,16 @@ package com.goruslan.socialgeeking.controller;
 
 import com.goruslan.socialgeeking.domain.Comment;
 import com.goruslan.socialgeeking.domain.Post;
+import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.CommentRepository;
 import com.goruslan.socialgeeking.repository.PostRepository;
+import com.goruslan.socialgeeking.repository.UserRepository;
 import com.goruslan.socialgeeking.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,11 +31,13 @@ public class PostController {
 
     private PostService postService;
     private CommentRepository commentRepository;
+    private UserRepository userRepository;
 
 
-    public PostController(PostService postService, CommentRepository commentRepository) {
+    public PostController(PostService postService, CommentRepository commentRepository, UserRepository userRepository) {
         this.postService = postService;
         this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/")
@@ -65,6 +71,19 @@ public class PostController {
 
     @PostMapping("/post/submit")
     public String createPost(@Valid Post post, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+             username = ((UserDetails)principal).getUsername();
+        } else {
+             username = principal.toString();
+        }
+
+        User user = userRepository.findByUsername(username);
+        post.setUser(user);
+
         if( bindingResult.hasErrors()){
             logger.info("Validation error while submitting a new post.");
             model.addAttribute("post", post);

@@ -33,8 +33,6 @@ import java.util.List;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Post extends Auditable{
 
     @Id
@@ -58,10 +56,8 @@ public class Post extends Auditable{
         comments.add(comment);
     }
 
-
-    @ManyToOne      // Relationship. Many posts can belong to one user.
+    @ManyToOne
     private User user;
-
 
     public String getPrettyTime() {
         PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
@@ -70,5 +66,45 @@ public class Post extends Auditable{
 
     private Date convertToDateViaInstant(LocalDateTime dateToConvert) {
         return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

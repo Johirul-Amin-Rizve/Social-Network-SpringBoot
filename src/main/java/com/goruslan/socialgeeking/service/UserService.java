@@ -1,5 +1,6 @@
 package com.goruslan.socialgeeking.service;
 
+import com.goruslan.socialgeeking.domain.Role;
 import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.UserRepository;
 import org.slf4j.LoggerFactory;
@@ -42,5 +43,9 @@ public class UserService {
             logger.debug("Failed to save user " + e.getMessage());
         }
         return user;
+    }
+
+    public User findByUsername(String Username) {
+        return userRepository.findByUsername(Username);
     }
 }
