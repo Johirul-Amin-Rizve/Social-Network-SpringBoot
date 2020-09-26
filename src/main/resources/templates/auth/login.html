@@ -2,7 +2,6 @@
 <html
         lang="en"
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head th:replace="~{layouts/main_layout :: head(title = 'Social Geeking')}">
 </head>
@@ -17,7 +16,6 @@
         <div class="container">
             <div class="block-heading" style="padding-top: 40px;">
                 <h2 class="text-info">Log In</h2>
-                <p>Geek is Portuguese for "pencil neck."<br /></p>
             </div>
             <form method="post" class="shadow" th:action="@{/login}">
                 <div class="alert alert-danger" th:if="${param.error != null}">

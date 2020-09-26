@@ -7,6 +7,7 @@ import com.goruslan.socialgeeking.repository.CommentRepository;
 import com.goruslan.socialgeeking.repository.UserRepository;
 import com.goruslan.socialgeeking.service.LocationService;
 import com.goruslan.socialgeeking.service.PostService;
+import com.goruslan.socialgeeking.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
@@ -29,22 +30,32 @@ public class PostController {
     private PostService postService;
     private LocationService locationService;
     private CommentRepository commentRepository;
-    private UserRepository userRepository;
+    private UserService userService;
 
 
     public PostController(PostService postService,
                           LocationService locationService,
                           CommentRepository commentRepository,
-                          UserRepository userRepository) {
+                          UserService userService) {
         this.postService = postService;
         this.locationService = locationService;
         this.commentRepository = commentRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/")
     public String list(Model model) {
-        model.addAttribute("posts", postService.findAll());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        if (!username.equals("anonymousUser") ){
+            User user = userService.findByUsername(username);
+            model.addAttribute("otherPublicPosts", postService.findAllByPrivacyAndNotUser("public", user));
+        }
         model.addAttribute("locations", locationService.findAll());
         model.addAttribute("publicPosts", postService.findByPrivacy("public"));
         return "post/list";
@@ -86,7 +97,7 @@ public class PostController {
              username = principal.toString();
         }
 
-        User user = userRepository.findByUsername(username);
+        User user = userService.findByUsername(username);
         post.setUser(user);
 
         if( bindingResult.hasErrors()){

@@ -10,7 +10,7 @@
           name="viewport"
           content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
   />
-  <title th:text="${title}">Social Geeking</title>
+  <title th:text="${title}">Social Website</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   <link
           rel="stylesheet"
@@ -46,7 +46,7 @@
         class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar"
 >
   <div class="container">
-    <a class="navbar-brand logo" th:href="@{/}">Social <strong>Geeking</strong></a
+    <a class="navbar-brand logo" th:href="@{/}">Social <strong>Website</strong></a
     ><button
           data-toggle="collapse"
           class="navbar-toggler"
@@ -60,7 +60,6 @@
         <li class="nav-item" role="presentation">
           <a class="nav-link active" th:href="@{/}">posts</a>
         </li>
-         if user is signed in
         <li class="nav-item" role="presentation" sec:authorize="isAuthenticated()">
           <a class="nav-link" th:href="@{/profile}">profile</a>
         </li>

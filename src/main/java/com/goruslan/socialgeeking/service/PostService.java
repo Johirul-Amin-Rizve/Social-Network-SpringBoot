@@ -2,6 +2,7 @@ package com.goruslan.socialgeeking.service;
 
 
 import com.goruslan.socialgeeking.domain.Post;
+import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,18 @@ public class PostService {
 
     public List<Post> findByPrivacy(String privacy) {
         return postRepository.findAllByPrivacy(privacy);
+    }
+
+    public List<Post> findAllByUser(User user) {
+        return postRepository.findAllByUser(user);
+    }
+
+    public List<Post> findAllByPrivacyAndUser(String privacy, User user) {
+        return postRepository.findAllByPrivacyAndUser(privacy, user);
+    }
+
+    public List<Post> findAllByPrivacyAndNotUser(String privacy, User user) {
+        return postRepository.findAllByPrivacyAndNotUser(privacy, user);
     }
 
     public Optional<Post> findById(Long id) {

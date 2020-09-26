@@ -76,7 +76,7 @@
             class="row d-flex justify-content-center shadow-sm border rounded"
             style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
             sec:authorize="isAuthenticated()"
-            th:each="post : ${posts}"
+            th:each="post : ${otherPublicPosts}"
     >
       <div class="col-lg-11 order-12">
         <h5 th:text="${post.title}">

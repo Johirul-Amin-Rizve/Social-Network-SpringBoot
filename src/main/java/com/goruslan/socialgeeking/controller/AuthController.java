@@ -1,9 +1,12 @@
 package com.goruslan.socialgeeking.controller;
 
 import com.goruslan.socialgeeking.domain.User;
+import com.goruslan.socialgeeking.service.PostService;
 import com.goruslan.socialgeeking.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +21,12 @@ public class AuthController {
 
     private final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private UserService userService;
+    private PostService postService;
 
 
-    public AuthController(UserService userService) {
+    public AuthController(UserService userService, PostService postService) {
+        this.userService = userService;
+        this.postService = postService;
         this.userService = userService;
     }
 
@@ -30,7 +36,17 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user = userService.findByUsername(username);
+        model.addAttribute("userPosts", postService.findAllByUser(user));
         return "auth/profile";
     }
 
