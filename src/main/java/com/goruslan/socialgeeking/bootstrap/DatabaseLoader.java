@@ -1,13 +1,7 @@
 package com.goruslan.socialgeeking.bootstrap;
 
-import com.goruslan.socialgeeking.domain.Comment;
-import com.goruslan.socialgeeking.domain.Post;
-import com.goruslan.socialgeeking.domain.Role;
-import com.goruslan.socialgeeking.domain.User;
-import com.goruslan.socialgeeking.repository.CommentRepository;
-import com.goruslan.socialgeeking.repository.PostRepository;
-import com.goruslan.socialgeeking.repository.RoleRepository;
-import com.goruslan.socialgeeking.repository.UserRepository;
+import com.goruslan.socialgeeking.domain.*;
+import com.goruslan.socialgeeking.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -24,23 +18,23 @@ public class DatabaseLoader implements CommandLineRunner {
     private CommentRepository commentRepository;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
+    private LocationRepository locationRepository;
 
 
     private Map<String,User> users = new HashMap<>();
 
 
-    public DatabaseLoader(PostRepository postRepository, CommentRepository commentRepository, UserRepository userRepository, RoleRepository roleRepository) {
+    public DatabaseLoader(PostRepository postRepository, CommentRepository commentRepository, UserRepository userRepository, RoleRepository roleRepository, LocationRepository locationRepository) {
         this.postRepository = postRepository;
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.locationRepository = locationRepository;
     }
 
     @Override
     public void run(String... args) {
-
-        // add users and roles
-        addUserAndRoles();
+        addData();
 //        Map<String,String> posts = new HashMap<>();
 //        posts.put("Securing Spring Boot APIs and SPAs with OAuth 2.0","https://auth0.com/blog/securing-spring-boot-apis-and-spas-with-oauth2/?utm_source=reddit&utm_medium=sc&utm_campaign=springboot_spa_securing");
 //        posts.put("Easy way to detect Device in Java Web Application using Spring Mobile - Source code to download from GitHub","https://www.opencodez.com/java/device-detection-using-spring-mobile.htm");
@@ -83,7 +77,16 @@ public class DatabaseLoader implements CommandLineRunner {
     }
 
 
-    private void addUserAndRoles() {
+    private void addData() {
+        Location location1 = new Location("Sylhet");
+        locationRepository.save(location1);
+
+        Location location2 = new Location("Bandarban");
+        locationRepository.save(location2);
+
+        Location location3 = new Location("Khulna");
+        locationRepository.save(location3);
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String secret = "{bcrypt}" + encoder.encode("password");
 
@@ -96,6 +99,5 @@ public class DatabaseLoader implements CommandLineRunner {
         user.setConfirmPassword(secret);
         userRepository.save(user);
         users.put("user@gmail.com", user);
-
     }
 }

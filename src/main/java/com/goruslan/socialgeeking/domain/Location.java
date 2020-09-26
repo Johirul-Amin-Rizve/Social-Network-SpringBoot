@@ -5,10 +5,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.Collection;
-
-
 
 @Entity
 @RequiredArgsConstructor
@@ -16,7 +12,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-public class Role {
+public class Location {
 
     @Id
     @GeneratedValue
@@ -24,7 +20,4 @@ public class Role {
 
     @NonNull
     private String name;
-
-    @ManyToMany( mappedBy = "roles")
-    private Collection<User> users;
 }
