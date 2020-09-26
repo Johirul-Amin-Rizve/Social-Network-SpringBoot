@@ -4,8 +4,8 @@ import com.goruslan.socialgeeking.domain.Comment;
 import com.goruslan.socialgeeking.domain.Post;
 import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.CommentRepository;
-import com.goruslan.socialgeeking.repository.PostRepository;
 import com.goruslan.socialgeeking.repository.UserRepository;
+import com.goruslan.socialgeeking.service.LocationService;
 import com.goruslan.socialgeeking.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,21 +21,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.Optional;
 
-//@RestController
-//@RequestMapping("/posts")
-
 @Controller
 public class PostController {
 
     private static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     private PostService postService;
+    private LocationService locationService;
     private CommentRepository commentRepository;
     private UserRepository userRepository;
 
 
-    public PostController(PostService postService, CommentRepository commentRepository, UserRepository userRepository) {
+    public PostController(PostService postService,
+                          LocationService locationService,
+                          CommentRepository commentRepository,
+                          UserRepository userRepository) {
         this.postService = postService;
+        this.locationService = locationService;
         this.commentRepository = commentRepository;
         this.userRepository = userRepository;
     }
@@ -66,6 +68,7 @@ public class PostController {
     @GetMapping("/post/submit")
     public String newPostForm(Model model){
         model.addAttribute("post", new Post());
+        model.addAttribute("locations", locationService.findAll());
         return "post/submit";
     }
 

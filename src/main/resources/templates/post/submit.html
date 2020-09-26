@@ -25,36 +25,41 @@
               method="POST"
               th:action="@{/post/submit}"
               th:object="${post}"
+              th
               class="shadow"
       >
-        <div class="form-group">
-          <label for="title">Title</label
-          ><input
-                id="title"
-                class="form-control item"
-                type="text"
-                name="title"
-                placeholder="Title"
-                required="required"
-                th:field="*{title}"
-        />
-          <small th:errors="*{title}" style="color:red;"></small>
-        </div>
 
         <div class="form-group">
-          <label for="body">Body</label
+          <label for="body">Status :</label
           ><textarea
                 id="body"
                 class="form-control"
                 name="body"
-                placeholder="Body"
+                placeholder="Status"
                 rows="3"
-                required="required"
-                th:field="*{url}"
+                th:field="*{title}"
         >
               </textarea>
-          <small th:errors="*{url}" style="color:red;"></small>
+          <small th:errors="*{title}" style="color:red;"></small>
         </div>
+
+        <div class="form-group">
+          <label for="body">Choose Privacy :</label> <br>
+          <input type="radio" id="public"  th:field="*{privacy}" value="public">
+          <label for="public">Public</label><br>
+          <input type="radio" id="private" th:field="*{privacy}" value="private">
+          <label for="private">Private</label><br>
+          <small th:errors="*{privacy}" style="color:red;"></small>
+        </div>
+
+<!--        <div class="form-group">-->
+<!--          <label for="body">Check In</label>-->
+<!--            <select class="form-control item" name="locations" id="locations">-->
+<!--              <option th:field="*{location}" th:each="location : ${locations}" th:text="${location.name}" th:value="${location}">Volvo</option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+
 
         <button class="btn btn-primary btn-block" type="submit">
           Submit

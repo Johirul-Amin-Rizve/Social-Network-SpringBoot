@@ -9,8 +9,6 @@ import javax.persistence.Id;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @ToString
 public class Location {
 
@@ -20,4 +18,20 @@ public class Location {
 
     @NonNull
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

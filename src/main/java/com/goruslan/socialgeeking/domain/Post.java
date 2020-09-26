@@ -40,13 +40,12 @@ public class Post extends Auditable{
     private Long id;
 
     @NonNull
-    @NotEmpty(message = "Please enter a title.")
+    @NotEmpty(message = "Please enter a status.")
     private String title;
 
     @NonNull
-    @NotEmpty(message = "Please enter url.")
-    @URL(message = "Please enter a valid url.")
-    private String url;
+    @NotEmpty(message = "Please select privacy.")
+    private String privacy;
 
     // Comments. Mapping: One to Many. Post -> Comments
     @OneToMany(mappedBy = "post")
@@ -58,6 +57,9 @@ public class Post extends Auditable{
 
     @ManyToOne
     private User user;
+
+//    @ManyToOne
+//    private Location location;
 
     public String getPrettyTime() {
         PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
@@ -84,14 +86,6 @@ public class Post extends Auditable{
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public List<Comment> getComments() {
         return comments;
     }
@@ -106,5 +100,13 @@ public class Post extends Auditable{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(String privacy) {
+        this.privacy = privacy;
     }
 }
