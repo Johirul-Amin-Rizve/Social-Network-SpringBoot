@@ -45,6 +45,7 @@ public class PostController {
     @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("posts", postService.findAll());
+        model.addAttribute("publicPosts", postService.findByPrivacy("public"));
         return "post/list";
     }
 

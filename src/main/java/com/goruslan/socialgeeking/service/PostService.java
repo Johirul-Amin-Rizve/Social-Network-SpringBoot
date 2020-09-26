@@ -21,6 +21,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> findByPrivacy(String privacy) {
+        return postRepository.findAllByPrivacy(privacy);
+    }
+
     public Optional<Post> findById(Long id) {
         return postRepository.findById(id);
     }

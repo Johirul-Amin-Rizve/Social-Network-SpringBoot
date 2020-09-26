@@ -30,29 +30,52 @@
       </div>
     </div>
 
-    <!-- Quote -->
-    <div class="row" style="margin: 0;margin-top: 20px;">
-      <div class="col">
-        <div class="block-heading">
-          <h2
-                  class="text-info d-flex justify-content-center align-items-center"
-          >
-            Posts
-          </h2>
-          <p
-                  class="d-flex justify-content-center"
-                  style="color: rgb(112,116,120);"
-          >
-            Let's support and share all the things we love!<br />
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Posts -->
+    <!-- Public Posts -->
     <div
             class="row d-flex justify-content-center shadow-sm border rounded"
             style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
+            sec:authorize="!isAuthenticated()"
+            th:each="post : ${publicPosts}"
+    >
+      <div class="col-lg-11 order-12">
+        <h5 th:text="${post.title}">
+          Lorem Ipsum dolor sit amet
+        </h5>
+        <div class="info">
+              <span
+                      class="text-muted" style="margin-right: 0;">
+                <span
+                        th:title="${post.getCreationDate()}"
+                        th:datetime="${post.getCreationDate()}"
+                        th:text="${post.getPrettyTime()}"
+                >4 hours ago by</span>by <a
+                      href="#"
+                      style="color: rgb(0,123,255);"
+                      th:href="@{'/u/' + ${post.getUser().getUsername()}}"
+                      th:text="${post.getUser().getUsername()}"
+              >John Smith</a
+              ></span>
+        </div>
+        <a th:href="@{'/post/' + ${post.id}}">
+          <button class="btn btn-outline-primary btn-sm" type="button">
+            Read More</button
+          >
+        </a>
+        <a
+                href="#"
+                style="margin-left: 20px;"
+                th:href="@{'/post/' + ${post.id}}"
+                th:text="|${post.getComments().size()} comments|"
+        >78 Comments</a
+        >
+      </div>
+    </div>
+
+    <!-- All Posts -->
+    <div
+            class="row d-flex justify-content-center shadow-sm border rounded"
+            style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
+            sec:authorize="isAuthenticated()"
             th:each="post : ${posts}"
     >
       <div class="col-lg-11 order-12">
@@ -90,19 +113,5 @@
     </div>
   </div>
 </div>
-
-<!-- Start: Footer White -->
-<!--
-<footer class="page-footer" style="margin-top: 30px;">
-  <div class="footer-copyright" style="margin: 0;padding: 0;">
-	<p>© 2019 Copyright Text</p>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-<script src="assets/js/smoothproducts.min.js"></script>
-<script src="assets/js/theme.js"></script> -->
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.goruslan.socialgeeking.repository;
 
 import com.goruslan.socialgeeking.domain.Post;
+import com.goruslan.socialgeeking.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 
 /**
@@ -20,5 +23,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-
+    List<Post> findAllByPrivacy(String privacy);
 }
