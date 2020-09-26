@@ -45,12 +45,14 @@ public class PostController {
     @GetMapping("/")
     public String list(Model model) {
         model.addAttribute("posts", postService.findAll());
+        model.addAttribute("locations", locationService.findAll());
         model.addAttribute("publicPosts", postService.findByPrivacy("public"));
         return "post/list";
     }
 
     @GetMapping("/post/{id}")
     public String read(@PathVariable Long id, Model model) {
+        model.addAttribute("locations", locationService.findAll());
         Optional<Post> post = postService.findById(id);
         if( post.isPresent() ) {
             Post currentPost = post.get();
@@ -68,15 +70,14 @@ public class PostController {
 
     @GetMapping("/post/submit")
     public String newPostForm(Model model){
-        model.addAttribute("post", new Post());
         model.addAttribute("locations", locationService.findAll());
+        model.addAttribute("post", new Post());
         return "post/submit";
     }
 
     @PostMapping("/post/submit")
     public String createPost(@Valid Post post, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
-
-
+        model.addAttribute("locations", locationService.findAll());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = "";
         if (principal instanceof UserDetails) {

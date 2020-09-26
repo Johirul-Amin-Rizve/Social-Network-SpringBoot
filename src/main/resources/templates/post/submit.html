@@ -2,7 +2,6 @@
 <html
         lang="en"
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head th:replace="~{layouts/main_layout :: head(title = 'Social Geeking')}">
 </head>
@@ -52,14 +51,16 @@
           <small th:errors="*{privacy}" style="color:red;"></small>
         </div>
 
-<!--        <div class="form-group">-->
-<!--          <label for="body">Check In</label>-->
-<!--            <select class="form-control item" name="locations" id="locations">-->
-<!--              <option th:field="*{location}" th:each="location : ${locations}" th:text="${location.name}" th:value="${location}">Volvo</option>-->
-<!--            </select>-->
-<!--        </div>-->
-
-
+        <div class="form-group">
+          <label for="body">Check In</label>
+            <select class="form-control item" required th:field="*{location}">
+              <option th:each="location : ${locations}"
+                      th:value="${location.id}"
+                      th:text="${location.name}"
+                      >
+              </option>
+            </select>
+        </div>
 
         <button class="btn btn-primary btn-block" type="submit">
           Submit

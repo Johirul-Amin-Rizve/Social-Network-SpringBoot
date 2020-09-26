@@ -58,8 +58,8 @@ public class Post extends Auditable{
     @ManyToOne
     private User user;
 
-//    @ManyToOne
-//    private Location location;
+    @ManyToOne
+    private Location location;
 
     public String getPrettyTime() {
         PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
@@ -109,4 +109,13 @@ public class Post extends Auditable{
     public void setPrivacy(String privacy) {
         this.privacy = privacy;
     }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
 }
