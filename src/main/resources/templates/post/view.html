@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head
+        th:replace="~{layouts/main_layout :: head(title = 'socialgeeking - Spring Boot Reddit Clone')}"
+>
+</head>
+
+<body>
+<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+
+<main class="page faq-page">
+    <section
+            class="clean-block clean-faq dark"
+            style="background-color: rgb(255,255,255);"
+    >
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Comments</h2>
+                <p>Treat others the way you want to be treated.<br /></p>
+            </div>
+
+            <div class="block-content">
+                <div class="alert alert-success" role="alert" th:if="${success}">
+                    New post was created!
+                </div>
+
+                <div class="faq-item">
+                    <h5 th:text="${post.title}">Lorem Ipsum dolor sit amet</h5>
+                    <div class="info">
+                <span
+                        class="text-muted">
+                    <span
+                        th:title="${post.getCreationDate()}"
+                        th:datetime="${post.getCreationDate()}"
+                        th:text="${post.getPrettyTime()}"
+                        style="margin-top: 10px;">
+                        >4 hours ago by</span> by <a
+                        href="#"
+                        th:href="@{'/u/' + ${post.getUser().getUsername()}}"
+                        th:text="${post.getUser().getUsername()}"
+                        style="color: rgb(0,123,255);"
+                >John Smith</a
+                ></span
+                >
+                    </div>
+
+                    <p
+                            th:text="${post.url}"
+                            style="font-size: 16px;margin-bottom: 20px;margin-top: 10px;"
+                    >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                        quam urna, dignissim nec auctor in, mattis vitae leo. Lorem
+                        ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam
+                        urna, dignissim nec auctor in, mattis vitae leo.
+                    </p>
+                    <span class="d-lg-flex align-items-lg-center" th:text="|All ${post.getComments().size()} comments:|"
+                    ><i
+                            class="icon-bubbles"
+                            style="margin-right: 7px;font-size: 20px;"
+                    ></i
+                    >0 Comments</span
+                    >
+
+                    <form sec:authorize="isAuthenticated()" id="frmAddComment" method="POST" th:action="@{/post/comments}" th:object="${comment}">
+                        <input type="hidden" th:field="*{post}"/>
+                        <div class="form-group">
+                            <textarea class="form-control" id="comment" rows="3" th:field="*{body}"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" >Add Comment</button>
+                    </form>
+
+                    <hr />
+                </div>
+                <div class="faq-item" th:each="comment : ${post.getComments()}">
+                    <div id="comment" class="answer" style="padding: 15px;">
+                <span
+                        class="text-muted" style="margin-top: 10px;margin-bottom: 20px;font-size: 15px;">
+                    <span th:title="${comment.getCreationDate()}"
+                        th:datetime="${comment.getCreationDate()}" th:text="${comment.getPrettyTime()}"
+
+                >4 hours ago by</span> by <a
+                        href="#"
+                        style="color: rgb(0,123,255);" th:text="${comment.getCreatedBy()}"
+                >John Smith</a
+                ></span
+                >
+                        <p th:text="${comment.getBody()}"
+                                style="color: rgba(0,0,0,0.93);margin: 0;margin-top: 10px;font-size: 15px;"
+                        >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                            quam urna, dignissim nec auctor in, mattis vitae leo. Lorem
+                            ipsum dolor sit amet, consectetur adipiscing elit.&nbsp;Lorem
+                            ipsum dolor sit amet, consectetur adipiscing elit.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

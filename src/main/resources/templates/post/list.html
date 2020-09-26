@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{layouts/main_layout :: head(title = 'Social Geeking')}">
+</head>
+
+<body>
+<nav th:replace="~{layouts/main_layout :: nav}"  style="z-index: 9999;"></nav>
+
+<div
+        class="container"
+        style="padding: 20px;margin-top: 100px;min-height: 600px;padding-top: 0; z-index: 9998;"
+        th:fragment="content"
+>
+  <div
+          class="clean-blog-post"
+          style="padding: 20px;padding-bottom: 25px;margin: 15px;"
+  >
+    <!-- Submit New Post Button -->
+    <div class="row" style="margin: 0;" sec:authorize="isAuthenticated()">
+      <div class="col">
+        <a th:href="@{/post/submit}">
+          <button class="btn btn-outline-primary float-right" type="button">
+            <i class="icon-pencil"></i>New Post
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="row" style="margin: 0;margin-top: 20px;">
+      <div class="col">
+        <div class="block-heading">
+          <h2
+                  class="text-info d-flex justify-content-center align-items-center"
+          >
+            Posts
+          </h2>
+          <p
+                  class="d-flex justify-content-center"
+                  style="color: rgb(112,116,120);"
+          >
+            Let's support and share all the things we love!<br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Posts -->
+    <div
+            class="row d-flex justify-content-center shadow-sm border rounded"
+            style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
+            th:each="post : ${posts}"
+    >
+      <div class="col-lg-11 order-12">
+        <h5 th:text="${post.title}">
+          Lorem Ipsum dolor sit amet
+        </h5>
+        <div class="info">
+              <span
+                      class="text-muted" style="margin-right: 0;">
+                <span
+                      th:title="${post.getCreationDate()}"
+                      th:datetime="${post.getCreationDate()}"
+                      th:text="${post.getPrettyTime()}"
+                >4 hours ago by</span>by <a
+                      href="#"
+                      style="color: rgb(0,123,255);"
+                      th:href="@{'/u/' + ${post.getUser().getUsername()}}"
+                      th:text="${post.getUser().getUsername()}"
+              >John Smith</a
+              ></span>
+        </div>
+        <p style="font-size: 15px;" th:text="${post.url}">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam
+          urna, dignissim nec auctor in, mattis vitae leo. Lorem ipsum dolor
+          sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim
+          nec auctor in, mattis vitae leo.
+        </p>
+        <a th:href="@{'/post/' + ${post.id}}">
+          <button class="btn btn-outline-primary btn-sm" type="button">
+            Read More</button
+          >
+        </a>
+        <a
+              href="#"
+              style="margin-left: 20px;"
+              th:href="@{'/post/' + ${post.id}}"
+              th:text="|${post.getComments().size()} comments|"
+      >78 Comments</a
+      >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Start: Footer White -->
+<!--
+<footer class="page-footer" style="margin-top: 30px;">
+  <div class="footer-copyright" style="margin: 0;padding: 0;">
+	<p>© 2019 Copyright Text</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
+<script src="assets/js/smoothproducts.min.js"></script>
+<script src="assets/js/theme.js"></script> -->
+</body>
+</html>
