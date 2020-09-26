@@ -57,14 +57,6 @@ public class User implements UserDetails {
     private String education;
 
     @NonNull
-    @NotEmpty(message = "Experience is required.")
-    private String experience;
-
-    @NonNull
-    @NotEmpty(message = "Summary of skills is required.")
-    private String skills;
-
-    @NonNull
     @NotEmpty(message = "Username is required.")
     @Column(nullable = false, unique = true)
     private String username;
