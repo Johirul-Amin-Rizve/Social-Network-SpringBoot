@@ -24,17 +24,30 @@ public class UserService {
         encoder = new BCryptPasswordEncoder();
     }
 
+    @Transactional
     public User register(User user) {
-        String secret = "{bcrypt}" + encoder.encode(user.getPassword());
-        user.setPassword(secret);
-        user.setEnabled(true);
-        user.setConfirmPassword(secret);
-        user.addRole(roleService.findByName("ROLE_USER"));
-        save(user);
+        try {
+            String secret = "{bcrypt}" + encoder.encode(user.getPassword());
+            user.setPassword(secret);
+            user.setEnabled(true);
+            user.setConfirmPassword(secret);
+            user.addRole(roleService.findByName("ROLE_USER"));
+            save(user);
+            logger.debug(user.toString());
+        } catch (Exception e) {
+            logger.debug("Failed to create Booking " + e.getMessage());
+        }
         return user;
     }
 
+    @Transactional
     public User save(User user) {
-        return userRepository.save(user);
+        try {
+            userRepository.save(user);
+            logger.debug(user.toString());
+        } catch (Exception e) {
+            logger.debug("Failed to create Booking " + e.getMessage());
+        }
+        return user;
     }
 }
