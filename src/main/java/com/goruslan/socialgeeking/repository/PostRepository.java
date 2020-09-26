@@ -1,8 +1,10 @@
 package com.goruslan.socialgeeking.repository;
 
+import com.goruslan.socialgeeking.domain.Location;
 import com.goruslan.socialgeeking.domain.Post;
 import com.goruslan.socialgeeking.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -29,6 +31,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p WHERE p.privacy = ?1 and p.user <> ?2")
     List<Post> findAllByPrivacyAndNotUser(String privacy, User user);
+
+//    @Modifying
+//    @Query("update Post set privacy = ?1, title = ?2, location = ?3 where id = ?4")
+//    void updatePost(String privacy, String title, Location location, long id);
 
     List<Post> findAllByUser(User user);
 }

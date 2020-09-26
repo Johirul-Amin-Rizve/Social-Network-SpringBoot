@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -29,8 +30,6 @@ import java.util.Date;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Comment extends Auditable{
 
     @Id
@@ -38,6 +37,7 @@ public class Comment extends Auditable{
     private Long id;
 
     @NonNull
+    @NotEmpty(message = "Please enter comment.")
     private String body;
 
     // Post. Mapping: Many to One. Comments -> Post.

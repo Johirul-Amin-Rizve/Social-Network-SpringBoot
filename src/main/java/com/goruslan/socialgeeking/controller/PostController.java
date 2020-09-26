@@ -79,6 +79,24 @@ public class PostController {
         }
     }
 
+    @GetMapping("/editPost/{id}")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("locations", locationService.findAll());
+        Optional<Post> post = postService.findById(id);
+        if( post.isPresent() ) {
+            Post currentPost = post.get();
+            Comment comment = new Comment();
+            comment.setPost(currentPost);
+            model.addAttribute("comment", comment);
+            model.addAttribute("post", currentPost);
+            model.addAttribute("success", model.containsAttribute("success"));
+            return "post/edit";
+
+        } else {
+            return "redirect:/ ";
+        }
+    }
+
     @GetMapping("/post/submit")
     public String newPostForm(Model model){
         model.addAttribute("locations", locationService.findAll());
@@ -107,6 +125,38 @@ public class PostController {
         } else {
             postService.save(post);
             logger.info("New Post was saved successfully.");
+            redirectAttributes
+                    .addAttribute("id", post.getId())
+                    .addFlashAttribute("success", true);
+            return "redirect:/post/{id}";
+
+        }
+    }
+
+    @PostMapping("/post/edit")
+    public String updatePost(@Valid Post post, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("locations", locationService.findAll());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userService.findByUsername(username);
+        post.setUser(user);
+
+        Optional<Post> previousPost = postService.findById(post.getId());
+        post.setCreatedBy(previousPost.get().getCreatedBy());
+        post.setCreationDate(previousPost.get().getCreationDate());
+
+        if( bindingResult.hasErrors()){
+            logger.info("Validation error while submitting a new post.");
+            model.addAttribute("post", post);
+            return "post/edit";
+        } else {
+            postService.save(post);
+            logger.info("Post updatted successfully.");
             redirectAttributes
                     .addAttribute("id", post.getId())
                     .addFlashAttribute("success", true);

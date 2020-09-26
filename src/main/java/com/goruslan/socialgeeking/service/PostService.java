@@ -46,4 +46,8 @@ public class PostService {
         return postRepository.save(post);
     }
 
+//    public void updatePost(Post post) {
+//         postRepository.updatePost(post.getPrivacy(), post.getTitle(), post.getLocation(), post.getId());
+//    }
+
 }

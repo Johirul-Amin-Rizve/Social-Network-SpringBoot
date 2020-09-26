@@ -59,7 +59,7 @@
                     <form sec:authorize="isAuthenticated()" id="frmAddComment" method="POST" th:action="@{/post/comments}" th:object="${comment}">
                         <input type="hidden" th:field="*{post}"/>
                         <div class="form-group">
-                            <textarea class="form-control" id="comment" rows="3" th:field="*{body}"></textarea>
+                            <textarea required class="form-control" id="comment" rows="3" th:field="*{body}"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" >Add Comment</button>
                     </form>
