@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head th:replace="~{layouts/main_layout :: head(title = 'Social Geeking')}">
+</head>
+
+<body>
+<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+<main class="page login-page">
+  <section
+          class="clean-block clean-form dark"
+          style="background-color: rgb(255,255,255);"
+  >
+    <div class="container">
+      <div class="block-heading" style="padding-top: 40px;">
+        <h2 class="text-info">New Post</h2>
+        <p>
+          Quality and consistency are key to social media success.<br />
+        </p>
+      </div>
+      <form
+              method="POST"
+              th:action="@{/post/submit}"
+              th:object="${post}"
+              class="shadow"
+      >
+        <div class="form-group">
+          <label for="title">Title</label
+          ><input
+                id="title"
+                class="form-control item"
+                type="text"
+                name="title"
+                placeholder="Title"
+                required="required"
+                th:field="*{title}"
+        />
+          <small th:errors="*{title}" style="color:red;"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="body">Body</label
+          ><textarea
+                id="body"
+                class="form-control"
+                name="body"
+                placeholder="Body"
+                rows="3"
+                required="required"
+                th:field="*{url}"
+        >
+              </textarea>
+          <small th:errors="*{url}" style="color:red;"></small>
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </section>
+</main>
+</body>
+</html>
