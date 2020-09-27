@@ -4,10 +4,7 @@ import com.goruslan.socialgeeking.service.BeanUtil;
 import lombok.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,6 +21,7 @@ public class Comment extends Auditable{
 
     @NonNull
     @NotEmpty(message = "Please enter comment.")
+    @Column(length = 2048)
     private String body;
 
     // Post. Mapping: Many to One. Comments -> Post.

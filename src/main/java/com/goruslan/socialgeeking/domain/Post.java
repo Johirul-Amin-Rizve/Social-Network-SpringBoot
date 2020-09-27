@@ -23,6 +23,7 @@ public class Post extends Auditable{
 
     @NonNull
     @NotEmpty(message = "Please enter a status.")
+    @Column(length = 2048)
     private String title;
 
     @NonNull
