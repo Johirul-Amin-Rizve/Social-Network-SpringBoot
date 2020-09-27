@@ -25,3 +25,8 @@ You can see the Social-Network-SpringBoot_ER_Diagram.jpg file in github reposito
 6. logged in user can view / edit / delete / pin to top his / her post in profile section also can comment in any post.
 7. In public posts section logged in user view all other users public post and can add / view comments. 
 8. In public posts section anonymous user all public post and can view comments only.
+
+# Demo User
+When you run a project some demo locations and a demo user will create.
+Demo user email: user@gmail.com
+Demo user password: 123456
