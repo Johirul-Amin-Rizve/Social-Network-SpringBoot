@@ -5,6 +5,8 @@ import com.goruslan.socialgeeking.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -34,5 +36,9 @@ public class UserService {
 
     public User findByUsername(String Username) {
         return userRepository.findByUsername(Username);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

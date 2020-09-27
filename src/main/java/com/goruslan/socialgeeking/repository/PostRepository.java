@@ -8,13 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    List<Post> findAllByPrivacy(String privacy);
+    List<Post> findAllByPrivacyOrderByIdDesc(String privacy);
 
-    List<Post> findAllByPrivacyAndUser(String privacy, User user);
-
-    @Query("SELECT p FROM Post p WHERE p.privacy = ?1 and p.user <> ?2")
+    @Query("SELECT p FROM Post p WHERE p.privacy = ?1 and p.user <> ?2 ORDER BY p.id desc ")
     List<Post> findAllByPrivacyAndNotUser(String privacy, User user);
 
-    List<Post> findAllByUser(User user);
+    List<Post> findAllByUserOrderByLastModifiedDateDesc(User user);
 
 }

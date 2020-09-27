@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -65,7 +66,14 @@ public class AuthController {
             model.addAttribute("validationErrors", bindingResult.getAllErrors());
             return "auth/register";
         } else {
-            // Register new user.
+            // check unique email.
+            Optional <User> checkExist = userService.findByEmail(user.getEmail());
+            if (!checkExist.isEmpty()){
+                logger.info("Errors registering a new user.");
+                model.addAttribute("user", user);
+                model.addAttribute("emailError", "Email already exist");
+                return "auth/register";
+            }
             User newUser = userService.register(user);
             redirectAttributes
                     .addFlashAttribute("id", newUser.getId())

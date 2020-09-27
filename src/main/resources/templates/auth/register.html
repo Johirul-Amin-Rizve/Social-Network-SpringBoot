@@ -27,6 +27,27 @@
         </div>
       </div>
 
+      <!-- Validation Errors -->
+      <div class="row" th:if="${validationErrors}">
+        <div class="col d-flex justify-content-center align-items-center">
+                <span class="text-danger align-middle">
+                  <ul th:each="error : ${validationErrors}">
+                    <li th:text="${error.getDefaultMessage()}"></li>
+                  </ul>
+                </span>
+        </div>
+      </div>
+
+      <div class="row" th:if="${emailError}">
+        <div class="col d-flex justify-content-center align-items-center">
+                <span class="text-danger align-middle">
+                  <ul>
+                    <li th:text="${emailError}"></li>
+                  </ul>
+                </span>
+        </div>
+      </div>
+
       <form
               method="POST"
               class="shadow"
@@ -47,7 +68,6 @@
                   th:field="*{fullname}"
                   autofocus
           />
-          <small th:errors="*{fullname}" style="color:red;"></small>
         </div>
 
         <div class="form-group">
@@ -61,7 +81,6 @@
                   th:field="*{email}"
                   autofocus
           />
-          <small th:errors="*{email}" style="color:red;"></small>
         </div>
 
         <div class="form-group">
@@ -75,7 +94,6 @@
                   th:field="*{username}"
                   autofocus
           />
-          <small th:errors="*{username}" style="color:red;"></small>
         </div>
 
         <div class="form-group">
@@ -89,7 +107,6 @@
                   th:field="*{education}"
                   autofocus
           />
-          <small th:errors="*{education}" style="color:red;"></small>
         </div>
 
         <div class="form-group">
@@ -102,7 +119,6 @@
                   th:field="*{password}"
                   autofocus
           />
-          <small th:errors="*{password}" style="color:red;"></small>
         </div>
 
         <div class="form-group">
@@ -115,7 +131,6 @@
                   th:field="*{confirmPassword}"
                   autofocus
           />
-          <small th:errors="*{confirmPassword}" style="color:red;"></small>
         </div>
 
         <button class="btn btn-primary btn-block" type="submit">

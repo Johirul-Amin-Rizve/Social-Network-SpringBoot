@@ -17,20 +17,12 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
-
     public List<Post> findByPrivacy(String privacy) {
-        return postRepository.findAllByPrivacy(privacy);
+        return postRepository.findAllByPrivacyOrderByIdDesc(privacy);
     }
 
     public List<Post> findAllByUser(User user) {
-        return postRepository.findAllByUser(user);
-    }
-
-    public List<Post> findAllByPrivacyAndUser(String privacy, User user) {
-        return postRepository.findAllByPrivacyAndUser(privacy, user);
+        return postRepository.findAllByUserOrderByLastModifiedDateDesc(user);
     }
 
     public List<Post> findAllByPrivacyAndNotUser(String privacy, User user) {
