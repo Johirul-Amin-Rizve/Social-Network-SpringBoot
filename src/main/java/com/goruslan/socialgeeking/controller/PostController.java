@@ -71,6 +71,7 @@ public class PostController {
             model.addAttribute("comment", comment);
             model.addAttribute("post", currentPost);
             model.addAttribute("success", model.containsAttribute("success"));
+            model.addAttribute("updateSuccess", model.containsAttribute("updateSuccess"));
             return "post/view";
 
         } else {
@@ -89,6 +90,7 @@ public class PostController {
             model.addAttribute("comment", comment);
             model.addAttribute("post", currentPost);
             model.addAttribute("success", model.containsAttribute("success"));
+            model.addAttribute("updateSuccess", model.containsAttribute("updateSuccess"));
             return "post/edit";
 
         } else {
@@ -155,10 +157,10 @@ public class PostController {
             return "post/edit";
         } else {
             postService.save(post);
-            logger.info("Post updatted successfully.");
+            logger.info("Post updated successfully.");
             redirectAttributes
                     .addAttribute("id", post.getId())
-                    .addFlashAttribute("success", true);
+                    .addFlashAttribute("updateSuccess", true);
             return "redirect:/post/{id}";
 
         }

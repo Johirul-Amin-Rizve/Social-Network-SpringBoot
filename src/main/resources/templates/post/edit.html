@@ -16,9 +16,6 @@
     <div class="container">
       <div class="block-heading" style="padding-top: 40px;">
         <h2 class="text-info">Edit Post</h2>
-        <p>
-          Quality and consistency are key to social media success.<br />
-        </p>
       </div>
       <form
               method="post"
@@ -54,7 +51,7 @@
 
         <div class="form-group">
           <label for="body">Check In</label>
-            <select class="form-control item" required th:field="*{location}">
+            <select readonly class="form-control item" required th:field="*{location}">
               <option value=""> Select </option>
               <option th:each="location : ${locations}"
                       th:value="${location.id}"

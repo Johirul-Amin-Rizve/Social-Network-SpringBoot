@@ -37,6 +37,7 @@
             sec:authorize="!isAuthenticated()"
             th:each="post : ${publicPosts}"
     >
+
       <div class="col-lg-11 order-12">
         <h5 th:text="${post.title}">
           Lorem Ipsum dolor sit amet
