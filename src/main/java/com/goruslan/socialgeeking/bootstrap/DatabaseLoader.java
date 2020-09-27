@@ -42,7 +42,7 @@ public class DatabaseLoader implements CommandLineRunner {
         locationRepository.save(location3);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String secret = "{bcrypt}" + encoder.encode("password");
+        String secret = "{bcrypt}" + encoder.encode("a");
 
         Role userRole = new Role("ROLE_USER");
         roleRepository.save(userRole);

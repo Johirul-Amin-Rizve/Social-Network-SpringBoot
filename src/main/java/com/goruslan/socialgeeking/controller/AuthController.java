@@ -45,6 +45,7 @@ public class AuthController {
         }
 
         User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
         model.addAttribute("userPosts", postService.findAllByUser(user));
         return "auth/profile";
     }

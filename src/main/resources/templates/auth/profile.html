@@ -15,17 +15,55 @@
           class="clean-block clean-form dark"
           style="background-color: rgb(255,255,255);"
   >
-    <div
-            class="row d-flex justify-content-center shadow-sm border rounded"
-            style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
-            sec:authorize="isAuthenticated()"
-            th:each="post : ${userPosts}"
-    >
-      <div class="col-lg-11 order-12">
-        <h5 th:text="${post.title}">
-          Lorem Ipsum dolor sit amet
-        </h5>
-        <div class="info">
+
+    <div class="container" th:object="${user}">
+
+      <br>
+
+      <div class="row">
+        <h3> My Profile </h3>
+      </div>
+
+      <div class="row">
+        <label for="fullname">Full Name : </label>
+        <samp id="fullname" th:text= "*{fullname}"/>
+      </div>
+
+      <div class="row">
+        <label for="email">Email : </label>
+        <samp id="email" th:text= "*{email}"/>
+      </div>
+
+      <div class="row">
+        <label for="username">Username : </label>
+        <samp id="username" th:text= "*{username}"/>
+      </div>
+
+      <div class="row">
+        <label for="education">Education : </label>
+        <samp id="education" th:text= "*{education}"/>
+      </div>
+    </div>
+    <hr>
+    <br>
+
+    <div class="container">
+      <div class="row">
+        <h3> My Posts </h3>
+      </div>
+
+      <div class="row">
+        <div
+                class="row d-flex justify-content-center shadow-sm border rounded"
+                style="margin-left: 0;margin-right: 0;margin-top: 10px;padding-top: 25px;padding-bottom: 25px;"
+                sec:authorize="isAuthenticated()"
+                th:each="post : ${userPosts}"
+        >
+          <div class="col-lg-11 order-12">
+            <h5 th:text="${post.title}">
+              Lorem Ipsum dolor sit amet
+            </h5>
+            <div class="info">
               <span
                       class="text-muted" style="margin-right: 0;">
                 <span
@@ -39,28 +77,39 @@
                       th:text="${post.getUser().getUsername()}"
               >John Smith</a
               ></span>
+            </div>
+            <a th:href="@{'/post/' + ${post.id}}">
+              <button class="btn btn-outline-primary btn-sm" type="button">
+                View</button
+              >
+            </a>
+
+            <a th:href="@{'/editPost/' + ${post.id}}">
+              <button class="btn btn-outline-primary btn-sm" type="button">
+                Edit</button
+              >
+            </a>
+
+            <a th:href="@{'/deletePost/' + ${post.id}}">
+              <button class="btn btn-outline-primary btn-sm" type="button">
+                Delete</button
+              >
+            </a>
+
+            <a
+                    href="#"
+                    style="margin-left: 20px;"
+                    th:href="@{'/post/' + ${post.id}}"
+                    th:text="|${post.getComments().size()} comments|"
+            >78 Comments</a
+            >
+          </div>
         </div>
-        <a th:href="@{'/post/' + ${post.id}}">
-          <button class="btn btn-outline-primary btn-sm" type="button">
-            Read More</button
-          >
-        </a>
-
-        <a th:href="@{'/editPost/' + ${post.id}}">
-          <button class="btn btn-outline-primary btn-sm" type="button">
-            Edit</button
-          >
-        </a>
-
-        <a
-                href="#"
-                style="margin-left: 20px;"
-                th:href="@{'/post/' + ${post.id}}"
-                th:text="|${post.getComments().size()} comments|"
-        >78 Comments</a
-        >
       </div>
     </div>
+
+    <br>
+
   </section>
 </main>
 </body>

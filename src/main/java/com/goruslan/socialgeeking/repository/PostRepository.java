@@ -16,4 +16,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByPrivacyAndNotUser(String privacy, User user);
 
     List<Post> findAllByUser(User user);
+
 }

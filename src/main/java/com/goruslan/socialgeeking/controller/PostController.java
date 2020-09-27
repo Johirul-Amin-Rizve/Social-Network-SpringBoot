@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -46,6 +47,7 @@ public class PostController {
     public String list(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = "";
+
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
         } else {
@@ -53,10 +55,13 @@ public class PostController {
         }
         if (!username.equals("anonymousUser") ){
             User user = userService.findByUsername(username);
-            model.addAttribute("otherPublicPosts", postService.findAllByPrivacyAndNotUser("public", user));
+            List<Post> otherPublicPosts =  postService.findAllByPrivacyAndNotUser("public", user);
+            model.addAttribute("otherPublicPosts", otherPublicPosts);
         }
+
+        List<Post> publicPosts =  postService.findByPrivacy("public");
         model.addAttribute("locations", locationService.findAll());
-        model.addAttribute("publicPosts", postService.findByPrivacy("public"));
+        model.addAttribute("publicPosts", publicPosts);
         return "post/list";
     }
 
@@ -79,8 +84,25 @@ public class PostController {
         }
     }
 
-    @GetMapping("/editPost/{id}")
+    @GetMapping("/deletePost/{id}")
     public String edit(@PathVariable Long id, Model model) {
+        postService.delete(id);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+        model.addAttribute("userPosts", postService.findAllByUser(user));
+        return "auth/profile";
+    }
+
+    @GetMapping("/editPost/{id}")
+    public String delete(@PathVariable Long id, Model model) {
         model.addAttribute("locations", locationService.findAll());
         Optional<Post> post = postService.findById(id);
         if( post.isPresent() ) {
