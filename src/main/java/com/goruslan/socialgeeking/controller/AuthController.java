@@ -27,7 +27,6 @@ public class AuthController {
     public AuthController(UserService userService, PostService postService) {
         this.userService = userService;
         this.postService = postService;
-        this.userService = userService;
     }
 
     @GetMapping("/login")

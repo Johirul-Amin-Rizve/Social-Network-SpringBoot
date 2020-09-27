@@ -13,20 +13,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-
-/** Description of annotations.
- *  - Entity:
- *      Specifies that the class can be mapped to the table.
- *  - NoArgsConstructor:
- *      Generates Constructor with no arguments.
- *  - Data:
- *      A shortcut for toString, EqualsAndHashCode, Getter, Setter and RequiredArgsConstructor.
- *  - Id:
- *      Specifies the primary key of an entity.
- *  - GeneratedValue:
- *      Provides for the specification of generation strategies for the values of primary keys.
- */
-
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -44,16 +30,6 @@ public class Comment extends Auditable{
     @ManyToOne
     @NonNull
     private Post post;
-
-
-    public String getPrettyTime() {
-        PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
-        return pt.format(convertToDateViaInstant(getCreationDate()));
-    }
-
-    private Date convertToDateViaInstant(LocalDateTime dateToConvert) {
-        return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
-    }
 
     public Long getId() {
         return id;
@@ -77,5 +53,14 @@ public class Comment extends Auditable{
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public String getPrettyTime() {
+        PrettyTime pt = BeanUtil.getBean(PrettyTime.class);
+        return pt.format(convertToDateViaInstant(getCreationDate()));
+    }
+
+    private Date convertToDateViaInstant(LocalDateTime dateToConvert) {
+        return java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

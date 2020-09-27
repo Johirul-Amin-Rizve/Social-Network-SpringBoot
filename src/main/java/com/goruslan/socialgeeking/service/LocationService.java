@@ -1,7 +1,6 @@
 package com.goruslan.socialgeeking.service;
 
 import com.goruslan.socialgeeking.domain.Location;
-import com.goruslan.socialgeeking.domain.Post;
 import com.goruslan.socialgeeking.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 

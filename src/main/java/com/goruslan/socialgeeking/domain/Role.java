@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.Collection;
 
-
-
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor

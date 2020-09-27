@@ -1,6 +1,5 @@
 package com.goruslan.socialgeeking.service;
 
-
 import com.goruslan.socialgeeking.domain.Post;
 import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.PostRepository;
@@ -45,9 +44,5 @@ public class PostService {
     public Post save(Post post) {
         return postRepository.save(post);
     }
-
-//    public void updatePost(Post post) {
-//         postRepository.updatePost(post.getPrivacy(), post.getTitle(), post.getLocation(), post.getId());
-//    }
 
 }

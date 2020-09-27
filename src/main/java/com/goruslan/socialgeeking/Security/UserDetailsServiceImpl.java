@@ -1,6 +1,5 @@
 package com.goruslan.socialgeeking.Security;
 
-
 import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

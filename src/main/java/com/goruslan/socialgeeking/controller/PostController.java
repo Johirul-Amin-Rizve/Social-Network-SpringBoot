@@ -4,7 +4,6 @@ import com.goruslan.socialgeeking.domain.Comment;
 import com.goruslan.socialgeeking.domain.Post;
 import com.goruslan.socialgeeking.domain.User;
 import com.goruslan.socialgeeking.repository.CommentRepository;
-import com.goruslan.socialgeeking.repository.UserRepository;
 import com.goruslan.socialgeeking.service.LocationService;
 import com.goruslan.socialgeeking.service.PostService;
 import com.goruslan.socialgeeking.service.UserService;

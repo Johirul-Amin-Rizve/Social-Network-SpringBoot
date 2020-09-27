@@ -6,16 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-    private PostRepository postRepository;
-    private CommentRepository commentRepository;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private LocationRepository locationRepository;
@@ -24,9 +20,7 @@ public class DatabaseLoader implements CommandLineRunner {
     private Map<String,User> users = new HashMap<>();
 
 
-    public DatabaseLoader(PostRepository postRepository, CommentRepository commentRepository, UserRepository userRepository, RoleRepository roleRepository, LocationRepository locationRepository) {
-        this.postRepository = postRepository;
-        this.commentRepository = commentRepository;
+    public DatabaseLoader(UserRepository userRepository, RoleRepository roleRepository, LocationRepository locationRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.locationRepository = locationRepository;
@@ -36,7 +30,6 @@ public class DatabaseLoader implements CommandLineRunner {
     public void run(String... args) {
         addData();
     }
-
 
     private void addData() {
         Location location1 = new Location("Sylhet");
