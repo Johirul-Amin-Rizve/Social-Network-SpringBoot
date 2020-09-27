@@ -120,6 +120,34 @@ public class PostController {
         }
     }
 
+    @GetMapping("/pinPost/{id}")
+    public String pinPost(@PathVariable Long id, Model model) {
+        Optional<Post> previousPost = postService.findById(id);
+        Post post = new Post();
+        post.setId(previousPost.get().getId());
+        post.setCreationDate(previousPost.get().getCreationDate());
+        post.setCreatedBy(previousPost.get().getCreatedBy());
+        post.setUser(previousPost.get().getUser());
+        post.setComments(previousPost.get().getComments());
+        post.setLocation(previousPost.get().getLocation());
+        post.setPrivacy(previousPost.get().getPrivacy());
+        post.setTitle(previousPost.get().getTitle());
+        postService.save(post);
+        logger.info("Post pin successfully.");
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+        model.addAttribute("userPosts", postService.findAllByUser(user));
+        return "auth/profile";
+    }
+
     @GetMapping("/post/submit")
     public String newPostForm(Model model){
         model.addAttribute("locations", locationService.findAll());
