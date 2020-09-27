@@ -150,7 +150,7 @@ public class PostController {
         post.setCreationDate(previousPost.get().getCreationDate());
 
         if( bindingResult.hasErrors()){
-            logger.info("Validation error while submitting a new post.");
+            logger.info("Validation error while submitting a post.");
             model.addAttribute("post", post);
             return "post/edit";
         } else {

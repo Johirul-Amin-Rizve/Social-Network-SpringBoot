@@ -54,6 +54,7 @@
         <div class="form-group">
           <label for="body">Check In</label>
             <select class="form-control item" required th:field="*{location}">
+              <option value=""> Select </option>
               <option th:each="location : ${locations}"
                       th:value="${location.id}"
                       th:text="${location.name}"
