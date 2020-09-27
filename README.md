@@ -1,5 +1,9 @@
-# Social-Network-SpringBoot
-This Project created with JAVA version 11 and Spring Boot With H2 Database.
+# Social-Media-SpringBoot
+This Project created with JAVA version 11 and Built With,
+* Spring Boot 2.
+* Spring Framework 5.
+* H2 Database.
+* Thymeleaf
 
 # Project Theme 
 Mr. Arif owns a travel agency, he has so many dreams and ideas to improve his business. To spread his business to customers, Mr. Arif has decided to build a website like social media where user can register and post a status by checking in location (locations which are only covered by that travel agency).
