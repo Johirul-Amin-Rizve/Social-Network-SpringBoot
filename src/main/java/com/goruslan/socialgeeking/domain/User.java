@@ -23,7 +23,7 @@ public class User implements UserDetails {
     private Long id;
 
     @NonNull
-    @Size(min = 8, max = 20)
+    @NotEmpty(message = "Email is required.")
     @Column(nullable = false, unique = true)
     private String email;
 
